@@ -9,6 +9,7 @@ use Brazebee\Events\Types\TrackEventResponse;
 use Brazebee\Exceptions\BrazebeeException;
 use Brazebee\Exceptions\BrazebeeApiException;
 use Brazebee\Core\Json\JsonApiRequest;
+use Brazebee\Environments;
 use Brazebee\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
@@ -79,7 +80,7 @@ class EventsClient
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
-                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? '',
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
                     path: "/api/v1/track",
                     method: HttpMethod::POST,
                     body: $request,

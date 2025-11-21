@@ -6,8 +6,15 @@ use Brazebee\Core\Json\JsonSerializableType;
 use Brazebee\Core\Json\JsonProperty;
 
 /**
- * User information. Optional for system events. Additional custom fields are supported.
- * Common additional fields: role, signup_date, last_login
+ * User information. Optional for system events.
+ *
+ * **Naming Options:**
+ * - Provide `name` if you have the full name
+ * - Provide `first_name` and `last_name` if you have separated names
+ * - Or provide all three for maximum flexibility
+ *
+ * **Additional Fields:**
+ * You can include any custom fields: role, plan, signup_date, last_login, etc.
  */
 class UserInfo extends JsonSerializableType
 {
@@ -24,16 +31,30 @@ class UserInfo extends JsonSerializableType
     public ?string $email;
 
     /**
-     * @var ?string $name User full name
+     * @var ?string $name User full name (e.g., "John Doe")
      */
     #[JsonProperty('name')]
     public ?string $name;
+
+    /**
+     * @var ?string $firstName User first name (e.g., "John")
+     */
+    #[JsonProperty('first_name')]
+    public ?string $firstName;
+
+    /**
+     * @var ?string $lastName User last name (e.g., "Doe")
+     */
+    #[JsonProperty('last_name')]
+    public ?string $lastName;
 
     /**
      * @param array{
      *   id: string,
      *   email?: ?string,
      *   name?: ?string,
+     *   firstName?: ?string,
+     *   lastName?: ?string,
      * } $values
      */
     public function __construct(
@@ -42,6 +63,8 @@ class UserInfo extends JsonSerializableType
         $this->id = $values['id'];
         $this->email = $values['email'] ?? null;
         $this->name = $values['name'] ?? null;
+        $this->firstName = $values['firstName'] ?? null;
+        $this->lastName = $values['lastName'] ?? null;
     }
 
     /**
