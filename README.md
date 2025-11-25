@@ -36,7 +36,10 @@ $request = new TrackEventRequest([
     'company' => new CompanyInfo([
         'id' => 'acme_corp',
         'name' => 'Acme Corporation',
-        'stripeCustomerId' => 'cus_abc123'
+        'paymentProvider' => 'stripe',
+        'paymentProviderId' => 'cus_abc123',
+        'crmProvider' => 'salesforce',
+        'crmProviderId' => 'acct_456'
     ]),
     'user' => new UserInfo([
         'id' => 'user_123',
@@ -240,7 +243,10 @@ Required fields:
 - `name` (string) - Company name
 
 Optional fields:
-- `stripeCustomerId` (string) - Stripe customer ID
+- `paymentProvider` (string) - Payment provider (e.g., `stripe`, `paddle`, `chargebee`, `custom`)
+- `paymentProviderId` (string) - Customer ID in the payment provider system
+- `crmProvider` (string) - CRM platform name (e.g., `salesforce`, `hubspot`)
+- `crmProviderId` (string) - Account/Company ID in the CRM
 
 ### UserInfo
 
